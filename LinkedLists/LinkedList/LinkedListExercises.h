@@ -9,6 +9,7 @@
  *
 **/
 
+
 /********************************************************************
   Week 1: Linked List and Merge Sort Exercises
 
@@ -34,7 +35,7 @@
 #include <string>
 
 #include "LinkedList.h"
-
+using namespace std;
 /********************************************************************
   Exercise 1: insertOrdered
 
@@ -79,7 +80,130 @@
  ********************************************************************/
 
 template <typename T>
-void LinkedList<T>::insertOrdered(const T& newData) {
+void LinkedList<T>::insertOrdered(const T& newData) 
+{
+
+  cout << "size at start: " << size() << endl;
+  Node *newNode = new Node;
+  *newNode = newData;
+
+  Node *current = head_;
+
+  cout << "head at start -- " << head_->data << endl;
+  cout << "tail at start -- " << tail_->data << endl;
+  if (head_==NULL) //List is empty
+  {  
+    current = newNode;
+    newNode->prev = NULL;
+    newNode->next = NULL;
+    tail_ = newNode;
+    size_++;
+
+  }else //List is not empty
+  {
+    // if (newNode->data < current->data)
+    // {  // Add to head
+        
+    //   newNode->next = head_;
+    //   newNode->prev = NULL;
+    //   head_->prev = newNode;
+    //   head_ = newNode;
+    //   cout << "New head is --- " << head_->data << endl;
+    //   size_++;
+
+    // }else
+    // {
+      while(current->next != NULL && newNode->data < current->data)
+      {
+        current = current->next;
+      }
+      // if (current->next->data < newNode->data)
+      // {
+        newNode->next = current->next;
+        newNode->prev = current->prev;
+        current->next = newNode;
+        size_++;
+      // }
+      // else
+      {
+        current->next = newNode;
+        newNode->prev = current;
+        newNode->next = NULL;
+        tail_ = newNode;    
+        cout << "new tail is --- " << tail_->data << endl;
+        size_++;
+      }
+    }
+  }
+
+}
+
+
+// template <typename T>
+// void LinkedList<T>::insertOrdered(const T& newData) 
+// {
+
+//   cout << "size at start: " << size() << endl;
+//   Node *newNode = new Node;
+//   *newNode = newData;
+
+//   Node *current = head_;
+
+//   cout << "head at start -- " << head_->data << endl;
+//   cout << "tail at start -- " << tail_->data << endl;
+//   if (head_==NULL) //List is empty
+//   {  
+//     current = newNode;
+//     newNode->prev = NULL;
+//     newNode->next = NULL;
+//     tail_ = newNode;
+//     size_++;
+
+//   }else //List is not empty
+//   {
+//     if (newNode->data < current->data)
+//     {  // Add to head
+        
+//       newNode->next = head_;
+//       newNode->prev = NULL;
+//       head_->prev = newNode;
+//       head_ = newNode;
+//       cout << "New head is --- " << head_->data << endl;
+//       size_++;
+
+//     }else
+//     {
+//       while(current->next != NULL)
+//       {
+//         current = current->next;
+//       }
+//       if (current->next->data < newNode->data)
+//       {
+//         //Node *temp = current->next;
+//         newNode->next = current->next;
+        
+//         newNode->prev = current->prev;
+//         current->next = newNode;
+//         //newNode->next = temp;
+//         //temp->prev = newNode;
+//         size_++;
+//       }
+//       else
+//       {
+//         current->next = newNode;
+//         newNode->prev = current;
+//         newNode->next = NULL;
+//         tail_ = newNode;    
+//         cout << "new tail is --- " << tail_->data << endl;
+//         size_++;
+//       }
+//     }
+//   }  
+// }
+
+
+
+
 
   // -----------------------------------------------------------
   // TODO: Your code here!
@@ -128,7 +252,7 @@ void LinkedList<T>::insertOrdered(const T& newData) {
   // to update all next, prev, head_, and tail_ pointers as needed on your
   // new node or on those existing nodes that are adjacent to the new node.
 
-}
+//}
 
 /********************************************************************
   Exercise 2: Linear-time Merge

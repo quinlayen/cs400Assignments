@@ -704,6 +704,9 @@ LinkedList<LinkedList<T>> LinkedList<T>::explode() const {
   return lists;
 }
 
+
+
+
 // The recursive version of the merge sort algorithm, which returns a new
 // list containing the sorted elements of the current list, in O(n log n) time.
 template <typename T>
@@ -847,6 +850,8 @@ LinkedList<T> LinkedList<T>::mergeSort() const {
   // return mergeSortIterative();
 
 }
+
+
 
 // Checks whether the size has been correctly updated by member functions,
 // and otherwise throws an exception. This is for testing only.
