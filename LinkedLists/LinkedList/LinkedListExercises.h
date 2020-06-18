@@ -39,7 +39,7 @@ using namespace std;
 /********************************************************************
   Exercise 1: insertOrdered
 
-  This LinkedList member function assumes that the current contents
+  This LinkedList member function assumes that the temp contents
   of the list are already sorted in increasing order. The function
   takes as input a new data item to be inserted to the same list.
   The new data item should be inserted to the list in the correct
@@ -87,56 +87,56 @@ void LinkedList<T>::insertOrdered(const T& newData)
   Node *newNode = new Node;
   *newNode = newData;
 
-  Node *current = head_;
+  Node *travp = head_;
 
   cout << "head at start -- " << head_->data << endl;
   cout << "tail at start -- " << tail_->data << endl;
+
   if (head_==NULL) //List is empty
   {  
-    current = newNode;
-    newNode->prev = NULL;
-    newNode->next = NULL;
-    tail_ = newNode;
-    size_++;
+    travp = newNode;
+    travp->prev = NULL;
+    travp->next = NULL;
+  
 
   }else //List is not empty
   {
-    // if (newNode->data < current->data)
-    // {  // Add to head
+    if (newNode->data < travp->data)
+    {  // Add to head
         
-    //   newNode->next = head_;
-    //   newNode->prev = NULL;
-    //   head_->prev = newNode;
-    //   head_ = newNode;
-    //   cout << "New head is --- " << head_->data << endl;
-    //   size_++;
+      newNode->next = head_;
+      newNode->prev = NULL;
+      head_->prev = newNode;
+      head_ = newNode;
+      cout << "New head is --- " << head_->data << endl;
+    
 
-    // }else
-    // {
-      while(current->next != NULL && newNode->data < current->data)
+    }else
+    {
+      while(travp->next != NULL && travp->next->data < newNode->data )
       {
-        current = current->next;
+        travp = travp->next;
       }
-      // if (current->next->data < newNode->data)
-      // {
-        newNode->next = current->next;
-        newNode->prev = current->prev;
-        current->next = newNode;
-        size_++;
-      // }
-      // else
-      {
-        current->next = newNode;
-        newNode->prev = current;
+        newNode->next = travp->next;
+        newNode->prev = travp;
+        travp->next = newNode;
+      
+ 
+     while(travp->next  NULL)
+     {
+        travp->next = newNode;
+        newNode->prev = travp;
         newNode->next = NULL;
         tail_ = newNode;    
         cout << "new tail is --- " << tail_->data << endl;
-        size_++;
-      }
+     
+     }
     }
   }
+    size_++;
 
-}
+  }
+
 
 
 // template <typename T>
@@ -147,13 +147,13 @@ void LinkedList<T>::insertOrdered(const T& newData)
 //   Node *newNode = new Node;
 //   *newNode = newData;
 
-//   Node *current = head_;
+//   Node *temp = head_;
 
 //   cout << "head at start -- " << head_->data << endl;
 //   cout << "tail at start -- " << tail_->data << endl;
 //   if (head_==NULL) //List is empty
 //   {  
-//     current = newNode;
+//     temp = newNode;
 //     newNode->prev = NULL;
 //     newNode->next = NULL;
 //     tail_ = newNode;
@@ -161,7 +161,7 @@ void LinkedList<T>::insertOrdered(const T& newData)
 
 //   }else //List is not empty
 //   {
-//     if (newNode->data < current->data)
+//     if (newNode->data < temp->data)
 //     {  // Add to head
         
 //       newNode->next = head_;
@@ -173,25 +173,25 @@ void LinkedList<T>::insertOrdered(const T& newData)
 
 //     }else
 //     {
-//       while(current->next != NULL)
+//       while(temp->next != NULL)
 //       {
-//         current = current->next;
+//         temp = temp->next;
 //       }
-//       if (current->next->data < newNode->data)
+//       if (temp->next->data < newNode->data)
 //       {
-//         //Node *temp = current->next;
-//         newNode->next = current->next;
+//         //Node *temp = temp->next;
+//         newNode->next = temp->next;
         
-//         newNode->prev = current->prev;
-//         current->next = newNode;
+//         newNode->prev = temp->prev;
+//         temp->next = newNode;
 //         //newNode->next = temp;
 //         //temp->prev = newNode;
 //         size_++;
 //       }
 //       else
 //       {
-//         current->next = newNode;
-//         newNode->prev = current;
+//         temp->next = newNode;
+//         newNode->prev = temp;
 //         newNode->next = NULL;
 //         tail_ = newNode;    
 //         cout << "new tail is --- " << tail_->data << endl;
@@ -234,7 +234,7 @@ void LinkedList<T>::insertOrdered(const T& newData)
   // traverse from node to node.
   
   // Consider all the cases that can happen when you're trying to insert
-  // the new node. Is the list currently empty? Does the new node go
+  // the new node. Is the list temply empty? Does the new node go
   // at the beginning? Does it go somewhere in the middle? Does it go
   // at the end? Remember that this is a doubly-linked list, so there
   // may be prev and next pointers to adjust on both sides of the node
@@ -332,7 +332,7 @@ LinkedList<T> LinkedList<T>::merge(const LinkedList<T>& other) const {
   // You can't edit the original instance of LinkedList that is calling
   // merge because the function is marked const, and the "other" input
   // list is also marked const. However, here we'll make some convenient
-  // "working copies" of the two lists: "*this" refers to the current
+  // "working copies" of the two lists: "*this" refers to the temp
   // list object instance that is calling the merge member function, and
   // "other" refers to the list that was passed as an argument:
   LinkedList<T> left = *this;
